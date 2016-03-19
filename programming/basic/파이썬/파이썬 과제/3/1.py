@@ -81,5 +81,28 @@ def score_average2():
     print_failsubject_count__if_exists();
     isExcludingFailScoreAndCount=False;
 #end define functions
-
-score_average2();
+isExitProgram=False;
+def ExitScript():
+    print("스크립트를 종료합니다");
+    exit();
+while (not isExitProgram):
+    print("");
+    print("사용할 함수의 번호를 입력하십시오.");
+    print("1. score_average()");
+    print("2. score_average2()");
+    print("3. 프로그램 종료");
+    selectNum = input("선택[1/2/3]: ");
+    if(selectNum.isnumeric()):
+        selectNum=int(selectNum);
+        if(selectNum==1):
+            score_average();
+        elif(selectNum==2):
+            score_average2();
+        else:
+            isExitProgram=True;
+            ExitScript();
+    else:
+        isExitProgram=True;
+        ExitScript();
+    
+#score_average2();
