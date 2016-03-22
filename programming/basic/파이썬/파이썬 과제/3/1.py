@@ -31,9 +31,12 @@ def score_average():
         
         try:
             tempScoreStr = input(in_msgs[isParsingError]);
+            if(not tempScoreStr.isnumeric()):
+                isParsingError=True;
+                continue;
             tempScore = float(tempScoreStr);
             isParsingError = False;
-            if(tempScore<0 or tempScore > 100):
+            if(tempScore<0.0 or tempScore > 100.0):
                 isParsingError=True;
                 continue;
                 print("not continue");

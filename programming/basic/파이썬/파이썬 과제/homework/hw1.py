@@ -41,6 +41,7 @@ class CoreFunctionContainer:
                         break;
                    
             except:continue;
+        del loopControl0;
             
 def grade0():
     cfc = CoreFunctionContainer();
@@ -66,13 +67,16 @@ def grade1():
                 
                 loopControl1 = True;
                 loopControl2 = False;
-                
+            
             else:
                 loopControl1 = True;
                 loopControl2 = True;
                 continue;
-        
-        
+        del tempReply;
+    
+        del loopControl2;
+    del loopControl1;
+
         
     print("1-나 프로그램 안녕");
     exit();

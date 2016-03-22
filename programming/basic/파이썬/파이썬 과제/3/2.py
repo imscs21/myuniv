@@ -1,4 +1,4 @@
-def isleapyear(year): 
+def isleapyear(year):
     if(year<0):
         return 0;
     elif ((not ((year % 400)==0 )) and ((year%100)==0)):
