@@ -143,3 +143,4 @@ def isRRN(message) :
         s = input(message);
         (front,mid,back) = s.partition("-");
     return s;
+grade0();
