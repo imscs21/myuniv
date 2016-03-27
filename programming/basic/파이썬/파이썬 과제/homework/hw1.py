@@ -8,7 +8,7 @@ def getGrade(score):
     if(score>=Grade_A[0] and score <= Grade_A[1]):
         return "A";
     elif(score<Grade_A[0] and score >= Grade_B[0]):
-       return "B"
+       return "B";
     elif(score<Grade_B[0] and score >= Grade_C[0]):
        return "C";
     elif(score<Grade_C[0] and score >= Grade_D[0]):
@@ -21,7 +21,7 @@ def getQuestion(idx):
     if(idx==0):
         return "백분위 점수: ";
     elif(idx == 1 ):
-        return "더할래?(y,n) "
+        return "더할래?(y/n)";
     else: return "error";
 class CoreFunctionContainer:
     def do(score):
@@ -58,12 +58,12 @@ def grade1():
         
             tempReply = input(getQuestion(1));
             tempReply = str(tempReply);
-            if(tempReply == "n"):
+            if(tempReply == "n" or tempReply == "N"):
                 
                 loopControl1 = False;
                 loopControl2 = False;
                
-            elif(tempReply =="y"):
+            elif(tempReply =="y" or tempReply =="Y"):
                 
                 loopControl1 = True;
                 loopControl2 = False;
@@ -143,4 +143,4 @@ def isRRN(message) :
         s = input(message);
         (front,mid,back) = s.partition("-");
     return s;
-grade0();
+
