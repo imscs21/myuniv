@@ -99,9 +99,9 @@ def biggest(a,b,c):
 def median(a,b,c):
     if(  biggest(a,b,c) == a):
 	    return bigger(b,c);
-    if(  biggest(a,b,c) == b):
+    elif(  biggest(a,b,c) == b):
         return bigger(a,c);
-    if(  biggest(a,b,c) == c):
+    elif(  biggest(a,b,c) == c):
         return bigger(b,a);
 		
     
