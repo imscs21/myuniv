@@ -33,7 +33,8 @@ def GetQuestion(idx):
 class CoreFunctionContainer:
     def DoCoreFunction(score):
         loopControl0 = True;
-        while loopControl0:
+        temoValue1 = "";
+        while (loopControl0):
             yourscore=0;
             try:
                 tempValue1 = input(GetQuestion(0));
@@ -96,48 +97,31 @@ def bigger(a,b) :
 def biggest(a,b,c): 
     return bigger(bigger(a,b),c) ;
 def median(a,b,c):
-    bgt = biggest(a,b,c);
-    bgtV = 0;
-    decArry = [a,b,c];
-    decIdx = 0;
-    idx1 = 0;
-    idx2 = 0;
-    if(bgt == a):
-        decIdx = 0;
-        idx1 = 1;
-        idx2 = 2;
-    elif (bgt == b):
-    
-        decIdx = 1;
-        idx1 =0;
-        idx2 =2;
-    elif (bgt ==c):
-        decIdx =2;
-        idx1 = 0;
-        idx2 = 1;    
-    bgtV = decArry[decIdx];
-   
-    return bigger(decArry[idx1],decArry[idx2]);
+    if(  biggest(a,b,c) == a):
+	    return bigger(b,c);
+    if(  biggest(a,b,c) == b):
+        return bigger(a,c);
+    if(  biggest(a,b,c) == c):
+        return bigger(b,a);
+		
     
 import math;  
 def format_ok(f,m,b) : 
-   if(not f.isnumeric()):
-       return False;
-   if( not b.isnumeric()):
-       return False;     
-   if(not (m=="-")):
-       return False;
-   f1 = int(f);
-   b1 = int(b);
-   numberPosCount =  int(math.log10(f1));
+
+    if((not f.isnumeric()) or (not b.isnumeric()) or(not (m=="-"))):
+        return False;	   
+    f1 = int(f);
+    b1 = int(b);
+    numberPosCount =  int(math.log10(f1));
    
-   if(numberPosCount != 5):
-       return False;
-   numberPosCount = int(math.log10(b1));
+    if(numberPosCount != 5):
+        return False;
+    numberPosCount = int(math.log10(b1));
    
-   if(numberPosCount != 6):
-       return False;
-   return True;
+    if(numberPosCount != 6):
+        return False;
+    del numberPosCount;   
+    return True;
 
 def last_digit_ok(vals) : 
     return (11 - ((2*int(vals[0])+3*int(vals[1])+4*int(vals[2])+5*int(vals[3])+6*int(vals[4])+7*int(vals[5])+8*int(vals[6])+9*int(vals[7])+2*int(vals[8])+3*int(vals[9])+4*int(vals[10])+5*int(vals[11])) % 11))==int(vals[12]);
@@ -151,5 +135,4 @@ def isRRN(message) :
         s = input(message);
         (front,mid,back) = s.partition("-");
     return s;
-
 #run function here
