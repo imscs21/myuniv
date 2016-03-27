@@ -22,6 +22,18 @@ def safe_sqrt():
     print("제곱근을 구해드립니다.");
     print("0이상의 수를 입력하세요.")
     while True: 
-    
-    
+        value= input();
+        value = get_fixed_signed(value);
+        valuedasi = safe_sqrt(value);
+        loopControl0 = True;
+        print("{0} 의 제곱근은 {1} 입니다".format(value,valuedasi));
+        loopControl1 = True;
+        while loopControl1:
+            vcheck = input("계속하시겠습니까?(y/n)");
+            if(vcheck=="n"):
+                loopControl1=False;
+                loopControl0=False;
+            elif(vcheck=="y"):
+        if(not loopControl0):
+            
     print("안녕히 가세요.");
