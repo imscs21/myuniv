@@ -34,9 +34,15 @@ class CoreFunctionContainer:
     def DoCoreFunction(score):
         loopControl0 = True;
         temoValue1 = "";
+        loopCount=int(0);
         while (loopControl0):
             yourscore=0;
-            try:
+            loopCount=loopCount+1;
+            if(loopCount > 200):
+                loopControl0=False;
+                break;
+            try:   
+               
                 tempValue1 = input(GetQuestion(0));
                 if(not tempValue1.isnumeric()):
                     continue;
@@ -47,8 +53,8 @@ class CoreFunctionContainer:
                     else:
                         print(GetQuestion(4),GetGrade(yourscore));
                         break;
-                   
-            except:continue;
+            except:continue;       
+
         del loopControl0;
             
 def grade0():
@@ -63,9 +69,11 @@ def grade1():
     while loopControl1:
         cfc.DoCoreFunction();
         loopControl2 = True;
+        tempReply="";
         while loopControl2:
         
             tempReply = input(GetQuestion(1));
+            
             tempReply = str(tempReply);
             if(tempReply == "n" or tempReply == "N"):
                 
@@ -136,3 +144,9 @@ def isRRN(message) :
         (front,mid,back) = s.partition("-");
     return s;
 #run function here
+
+
+#tester.sh 파일에서 #/bin/sh가 아니라 #!/bin/sh라 생각됩니다
+#tester.sh 때문에 정상적으로 sh 바이너리가 작동하지 않아서 애먹었습니다;;;
+#chmod 777 tester.sh
+# ./tester.sh myhomework.py
