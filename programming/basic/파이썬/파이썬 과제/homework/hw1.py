@@ -75,12 +75,12 @@ def grade1():
             tempReply = input(GetQuestion(1));
             
             tempReply = str(tempReply);
-            if(tempReply == "n" or tempReply == "N"):
+            if(tempReply == "n"):
                 
                 loopControl1 = False;
                 loopControl2 = False;
                
-            elif(tempReply =="y" or tempReply =="Y"):
+            elif(tempReply =="y" ):
                 
                 loopControl1 = True;
                 loopControl2 = False;

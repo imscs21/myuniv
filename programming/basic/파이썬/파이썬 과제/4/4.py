@@ -10,7 +10,7 @@ def get_fixed_signed(message) :
     return float(s);
 def isfloat(s) : 
     (m,_,n) = s.partition(".");
-    return m.isdigit() and (n.isdigit() or n == "") or \ m == "" and n.isdigit();
+    return m.isdigit() and (n.isdigit() or n == "") or  m == "" and n.isdigit();
      
 def stop():
     cont = input('계속하시겠습니까? (y/n) ');     
@@ -23,8 +23,10 @@ def safe_sqrt():
     print("0이상의 수를 입력하세요.")
     while True: 
         value= input();
+        if(value.isnumeric()):
+            continue;
         value = get_fixed_signed(value);
-        valuedasi = safe_sqrt(value);
+        valuedasi = math.sqrt(value);
         loopControl0 = True;
         print("{0} 의 제곱근은 {1} 입니다".format(value,valuedasi));
         loopControl1 = True;
@@ -34,6 +36,13 @@ def safe_sqrt():
                 loopControl1=False;
                 loopControl0=False;
             elif(vcheck=="y"):
-        if(not loopControl0):
-            
+                loopControl0 = True;
+                break;
+            else:
+                continue;
+        if(loopControl0):
+            continue;
+        else:
+            break;
     print("안녕히 가세요.");
+safe_sqrt();
