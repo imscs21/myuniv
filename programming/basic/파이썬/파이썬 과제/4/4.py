@@ -1,5 +1,9 @@
 def remove_sign(val):
-    return val.replace("-","");
+    if(val[0]=='-' or val[0] == '+'):
+        return val[1:];
+    else:
+        return val;
+    #return val.replace("-","");
 
 def isfloat(s) : 
     (m,_,n) = s.partition(".") 
@@ -54,4 +58,5 @@ def safe_sqrt():
         else:
             break;
     print("안녕히 가세요.");
-safe_sqrt();
+# safe_sqrt();
+print(get_fixed_signed("aaaa"))

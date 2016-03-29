@@ -1,152 +1,151 @@
-Grade_A = [int(90),int(100)];
-Grade_B = [int(80),int(89)];
-Grade_C = [int(70),int(79)];
-Grade_D = [int(60),int(69)];
-Grade_F = [int(0),int(59)];
+Grade_A = [int(90),int(100)] 
+Grade_B = [int(80),int(89)] 
+Grade_C = [int(70),int(79)] 
+Grade_D = [int(60),int(69)] 
+Grade_F = [int(0),int(59)] 
 
 def GetGrade(score):
     if(score>=Grade_A[0] and score <= Grade_A[1]):
-        return "A";
+        return "A" 
     elif(score<Grade_A[0] and score >= Grade_B[0]):
-       return "B";
+       return "B" 
     elif(score<Grade_B[0] and score >= Grade_C[0]):
-       return "C";
+       return "C" 
     elif(score<Grade_C[0] and score >= Grade_D[0]):
-       return "D";
+       return "D" 
      
     else:
-       return "F";
+       return "F" 
     
 def GetQuestion(idx):
     if (idx==0):
-        return "백분위 점수: ";
+        return "백분위 점수: " 
     elif (idx == 1 ):
-        return "더할래?(y/n)";
+        return "더할래?(y/n)" 
     elif ( idx == 2 ):
-        return "1-가 프로그램 안녕";
+        return "1-가 프로그램 안녕" 
     elif ( idx == 3):
-        return "1-나 프로그램 안녕";
+        return "1-나 프로그램 안녕" 
     elif ( idx== 4 ):
-        return "학점:";
+        return "학점:" 
 		
-    else: return "error";
+    else: return "error" 
 class CoreFunctionContainer:
     def DoCoreFunction(score):
-        loopControl0 = True;
-        temoValue1 = "";
-        loopCount=int(0);
+        loopControl0 = True 
+        temoValue1 = "" 
+        loopCount=int(0) 
         while (loopControl0):
-            yourscore=0;
-            loopCount=loopCount+1;
+            yourscore=0 
+            loopCount=loopCount+1 
             if(loopCount > 200):
-                loopControl0=False;
-                break;
+                loopControl0=False 
+                break 
             try:   
                
-                tempValue1 = input(GetQuestion(0));
+                tempValue1 = input(GetQuestion(0)) 
                 if(not tempValue1.isnumeric()):
-                    continue;
+                    continue 
                 else:
-                    yourscore = int(tempValue1);
+                    yourscore = int(tempValue1) 
                     if(yourscore>100 or yourscore<0):
-                        continue;
+                        continue 
                     else:
-                        print(GetQuestion(4),GetGrade(yourscore));
-                        break;
-            except:continue;       
+                        print(GetQuestion(4),GetGrade(yourscore)) 
+                        break 
+            except:continue        
 
-        del loopControl0;
+        del loopControl0 
             
 def grade0():
-    cfc = CoreFunctionContainer();
-    cfc.DoCoreFunction();
-    del cfc;
-    print(GetQuestion(2));
-    exit();
+    cfc = CoreFunctionContainer() 
+    cfc.DoCoreFunction() 
+    del cfc 
+    print(GetQuestion(2)) 
+    exit() 
 def grade1():
-    cfc = CoreFunctionContainer();
-    loopControl1 = True;
+    cfc = CoreFunctionContainer() 
+    loopControl1 = True 
     while loopControl1:
-        cfc.DoCoreFunction();
-        loopControl2 = True;
-        tempReply="";
+        cfc.DoCoreFunction() 
+        loopControl2 = True 
+        tempReply="" 
         while loopControl2:
         
-            tempReply = input(GetQuestion(1));
+            tempReply = input(GetQuestion(1)) 
             
-            tempReply = str(tempReply);
+            tempReply = str(tempReply) 
             if(tempReply == "n"):
                 
-                loopControl1 = False;
-                loopControl2 = False;
+                loopControl1 = False 
+                loopControl2 = False 
                
             elif(tempReply =="y" ):
                 
-                loopControl1 = True;
-                loopControl2 = False;
+                loopControl1 = True 
+                loopControl2 = False 
             
             else:
-                loopControl1 = True;
-                loopControl2 = True;
-                continue;
-        del tempReply;
+                loopControl1 = True 
+                loopControl2 = True 
+                continue 
+        del tempReply 
     
-        del loopControl2;
-    del loopControl1;
+        del loopControl2 
+    del loopControl1 
 
-    del cfc;   
-    print(GetQuestion(3));
-    exit();
+    del cfc    
+    print(GetQuestion(3)) 
+    exit() 
 def bigger(a,b) : 
     if a > b : 
-        return a ;
+        return a  
     else : 
-        return b ;
+        return b  
 def biggest(a,b,c): 
-    return bigger(bigger(a,b),c) ;
+    return bigger(bigger(a,b),c)  
 def median(a,b,c):
     if(  biggest(a,b,c) == a):
-	    return bigger(b,c);
+	    return bigger(b,c) 
     elif(  biggest(a,b,c) == b):
-        return bigger(a,c);
+        return bigger(a,c) 
     elif(  biggest(a,b,c) == c):
-        return bigger(b,a);
+        return bigger(b,a) 
 		
     
-import math;  
+import math   
 def format_ok(f,m,b) : 
 
     if((not f.isnumeric()) or (not b.isnumeric()) or(not (m=="-"))):
-        return False;	   
-    f1 = int(f);
-    b1 = int(b);
-    numberPosCount =  int(math.log10(f1));
+        return False 	   
+    f1 = int(f) 
+    b1 = int(b) 
+    numberPosCount =  int(math.log10(f1)) 
    
     if(numberPosCount != 5):
-        return False;
-    numberPosCount = int(math.log10(b1));
+        return False 
+    numberPosCount = int(math.log10(b1)) 
    
     if(numberPosCount != 6):
-        return False;
-    del numberPosCount;   
-    return True;
+        return False 
+    del numberPosCount    
+    return True 
 
 def last_digit_ok(vals) : 
-    return (11 - ((2*int(vals[0])+3*int(vals[1])+4*int(vals[2])+5*int(vals[3])+6*int(vals[4])+7*int(vals[5])+8*int(vals[6])+9*int(vals[7])+2*int(vals[8])+3*int(vals[9])+4*int(vals[10])+5*int(vals[11])) % 11))==int(vals[12]);
+    return (11 - ((2*int(vals[0])+3*int(vals[1])+4*int(vals[2])+5*int(vals[3])+6*int(vals[4])+7*int(vals[5])+8*int(vals[6])+9*int(vals[7])+2*int(vals[8])+3*int(vals[9])+4*int(vals[10])+5*int(vals[11])) % 11))==int(vals[12]) 
    
 def isRRN(message) : 
-    s = input(message) ;
-    (front,mid,back) = s.partition("-");
+    s = input(message)  
+    (front,mid,back) = s.partition("-") 
     while not (format_ok(front,mid,back) and last_digit_ok(front+back)) :          
-        print("Invalid number") ;
+        print("Invalid number")  
         
-        s = input(message);
-        (front,mid,back) = s.partition("-");
-    return s;
+        s = input(message) 
+        (front,mid,back) = s.partition("-") 
+    return s 
 #run function here
 
 
-#tester.sh 파일에서 #/bin/sh가 아니라 #!/bin/sh라 생각됩니다
-#tester.sh 때문에 정상적으로 sh 바이너리가 작동하지 않아서 애먹었습니다;;;
+#tester.sh 파일에서 #/bin/sh가 아니라 #!/bin/sh라 생각됩니다 
 #chmod 777 tester.sh
 # ./tester.sh myhomework.py
