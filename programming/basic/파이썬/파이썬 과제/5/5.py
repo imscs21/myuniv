@@ -1,6 +1,7 @@
 def gcd(m,n): 
-    while n != 0: 
-        temp = m % n;
-        m = b;
-        n = temp;
-    return abs(m);
+    a=float(0)
+    b=float(0)
+    a = max(abs(m),abs(n))
+    b = min(abs(m),abs(n))
+    
+    return abs(a)
