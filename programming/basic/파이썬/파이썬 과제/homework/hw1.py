@@ -129,6 +129,24 @@ def format_ok(f,m,b) :
     if(numberPosCount != 6):
         return False 
     del numberPosCount    
+    import datetime
+    tyear =  int(f[:2])
+    if (tyear > 20):
+        tyear = int("19"+f[:2])
+    else:
+        tyear = int("20"+f[:2])
+    try:
+        tmonth =  int(f[2:4])
+        tday = int(f[4:])
+        tdate  = datetime.date(tyear, tmonth, tday);
+        checkyear = tdate.year
+        checkmonth = tdate.month
+        checkday = tdate.day
+        del checkday
+        del checkmonth
+        del checkyear
+    except:
+        return False
     return True 
 
 def last_digit_ok(vals) : 
@@ -145,7 +163,8 @@ def isRRN(message) :
     return s 
 #run function here
 
-
+f = input("앞자리");
+print(format_ok(f,"-","1234567"))
 #tester.sh 파일에서 #/bin/sh가 아니라 #!/bin/sh라 생각됩니다 
 #chmod 777 tester.sh
 # ./tester.sh myhomework.py
