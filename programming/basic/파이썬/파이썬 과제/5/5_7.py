@@ -10,3 +10,4 @@ def fastmult(m,n):
             return ans;
     return loop(m,n,0)
 print(fastmult(3,6))
+#꼬리재귀
