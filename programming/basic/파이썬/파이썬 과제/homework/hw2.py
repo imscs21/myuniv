@@ -1,4 +1,5 @@
 #1번 문제
+#====================
 #1-가
 
 def remove_one1(s,x):
@@ -127,13 +128,39 @@ def take3(s,x):
             if(s==[]):
                 break;
     return left
-    
+
+#2번 문제
+#===================
+#2-가
 def union1(xs,ys):
     
     
 def union2(xs,ys):
     
 def union3(xs,ys):
+    tempxs = xs
+    tempys = ys
+    result=[]
+    result.extend(tempxs)
+    result.extend(tempys)
+    while(not(tempxs==[] or tempys == [])):
+        
+        
+    return result
+
+#2-나
+def intersection1(xs,ys):
+    
+def intersection2(xs,ys):
+    
+def intersection3(xs,ys):
+    
+#2-다
+def difference1(xs,ys):
+    
+def difference2(xs,ys):
+    
+def difference3(xs,ys):
     
 
 print(take1([7,5,2,4,1,5,2,6],5))
