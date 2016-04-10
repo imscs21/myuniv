@@ -10,3 +10,4 @@ def fastmult(m,n):
             return  m+fastmult(m,n-1)
     else: 
         return 0
+#그냥 재귀
