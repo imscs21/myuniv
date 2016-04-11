@@ -133,34 +133,71 @@ def take3(s,x):
 #===================
 #2-가
 def union1(xs,ys):
-    
+    if(not (xs==[] or ys == [])):
+        result = []
+        result.extend([xs[0],ys[0]])
+        result.extend(union1(xs[1:],ys[1:]))
+        return result
+    else:
+        result =xs
+        result.extend(ys)
+        return result
     
 def union2(xs,ys):
+    def loop(xs,ys,result):
+        if(not(xs==[] or ys == [])):
+            result.append(xs[0])
+            result.append(ys[0])
+            return loop(xs[1:],ys[1:],result)
+            
+        else:
+            result.extend(xs)
+            result.extend(ys)
+            return result;
+    return loop(xs,ys,[])
     
 def union3(xs,ys):
     tempxs = xs
     tempys = ys
     result=[]
+    while(not(tempxs==[] or tempys == [])):
+        result.append(tempxs[0])
+        result.append(tempys[0])
+        tempxs = tempxs[1:]
+        tempys = tempys[1:]
     result.extend(tempxs)
     result.extend(tempys)
-    while(not(tempxs==[] or tempys == [])):
-        
-        
     return result
 
 #2-나
 def intersection1(xs,ys):
-    
+    return 0
 def intersection2(xs,ys):
-    
+    return 0
 def intersection3(xs,ys):
-    
+    tempxs = xs
+    tempys = ys
+    result = []
+    lenx = len(xs)
+    leny = len(ys)
+    leng=0
+    while(leng<lenx):
+        
+        for val in tempys:
+            
+            if(tempxs[leng] == val):
+                
+                result.append(val)
+                tempys = remove_one3(tempys,val)
+                break;
+        leng += 1
+    return result
 #2-다
 def difference1(xs,ys):
-    
+    return 0
 def difference2(xs,ys):
-    
+    return 0
 def difference3(xs,ys):
-    
+    return 0
 
-print(take1([7,5,2,4,1,5,2,6],5))
+print(intersection3([7,5,4,1,2,6,3],[1,3,8,2,9]))
