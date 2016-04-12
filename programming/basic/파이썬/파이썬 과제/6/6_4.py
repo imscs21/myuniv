@@ -8,27 +8,38 @@ def merge0(left,right):
     else: 
         return left + right
         
+#실습 8
 def merge1(left,right): 
     def loop(left,right,ss): 
         print("sleft:  ",ss,"left: ",left,"right: ",right)
         if not (left == [] or right == []): 
             if left[0] <= right[0]: 
-                #ss.append(left[0]) 
-                #ss = ss+[left[0]]
+                ss.append(left[0]) 
                 return loop(left[1:],right,ss)
             else: 
-                #ss.append(right[0]) 
-                #ss = ss+[right[0]]
+                ss.append(right[0]) 
                 return loop(left,right[1:],ss)
         else: 
-            return ss
+            return ss+left+right
     return loop(left,right,[])
     
+#실습 9
+def merge(left,right): 
+    ss = [] 
+    while not (left == [] or right == []): 
+        if left[0] <= right[0]: 
+            ss.append(left[0]) 
+            left = left[1:]
+        else: 
+            ss.append(right[0]) 
+            right = right[1:]
+    return ss+left+right
+    
 def msort(s): 
-    print("msort: ",s)
+  
     if len(s) > 1: 
         mid = len(s) // 2 
-        return merge0(msort(s[:mid]),msort(s[mid:])) 
+        return merge(msort(s[:mid]),msort(s[mid:])) 
     else: 
         return s
-print(msort([32,23,18,7,11,99,55]))
+
