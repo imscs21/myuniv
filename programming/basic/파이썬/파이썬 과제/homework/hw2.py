@@ -291,6 +291,7 @@ def rankith(s,i):
         gst = greatest0(s)
         return gst    
         
+#4번 문제
 def longest_repetition(s): 
     if s != []:
         record = s[0]      # 지금까지 가장큰 수
