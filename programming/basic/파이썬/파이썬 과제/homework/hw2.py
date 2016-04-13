@@ -224,13 +224,31 @@ def intersection3(xs,ys):
     
 #2-다 (xs 에서 ys빼기)
 def difference1(xs,ys):
-    return 0
+    ys = intersection1(xs,ys)
+    if(ys != []):
+        xs = remove_one1(xs,ys[0])
+        return difference1(xs,ys[1:])
+    else:   
+        return xs
 def difference2(xs,ys):
-    return 0
+    def loop(xs,ys,result):
+        ys = intersection2(xs,ys)
+        if(ys != []):
+            xs = remove_one2(xs,ys[0])
+            result = xs
+            return loop(xs,ys[1:],result)    
+        else:
+            
+            return result
+    return loop(xs,ys,[])
+    
 def difference3(xs,ys):
-    #result = []
-    #while():
-    return 0
+    inter = intersection2(xs,ys)
+    result=xs
+    while(inter != []):
+        result = remove_one3(result,inter[0])
+        inter = inter[1:]
+    return result
     
 #문제 3
 def greatest0(s): 
@@ -314,4 +332,33 @@ def longest_repetition(s):
         return (record,recordtimes) 
     else: 
         return (None,0)
-print(longest_repetition([5,5,4,4,4,4,4,2,2,2,2,7,8,4,4,3,3,3]) )
+
+#5번 문제
+def seq_search_closest(s,key):
+    if(s==[]):
+        return None
+    else:
+        
+        closeDepth = -1
+        minCloseDept = abs(key-max(s)) 
+        closeValue=-1
+        minCloseValue = -1
+        minCloseValueIdx = 0
+        closeValueIdx = 0
+        indexx = -1
+            #for val in s:
+        for i in range(0,len(s)):
+            val = s[i]
+            closeDepth = abs(key-val)
+            closeValue = val
+            indexx = indexx +1
+            if((closeDepth < minCloseDept) or minCloseDept ==-1):
+                minCloseDept = closeDepth
+                minCloseValue = closeValue
+                minCloseValueIdx = indexx
+        return minCloseValueIdx
+                    
+def linear_search_closest(s,key):
+    return seq_search_closest(s,key)
+
+print(linear_search_closest([5,2,7,15],5) )
