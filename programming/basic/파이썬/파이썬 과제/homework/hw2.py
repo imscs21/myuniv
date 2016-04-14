@@ -333,6 +333,10 @@ def longest_repetition(s):
     else: 
         return (None,0)
 
+def genrandlist(m,n): 
+    return [random.randrange(m) for _ in range(n)]
+
+
 #5번 문제
 def seq_search_closest(s,key):
     if(s==[]):
@@ -357,8 +361,83 @@ def seq_search_closest(s,key):
                 minCloseValue = closeValue
                 minCloseValueIdx = indexx
         return minCloseValueIdx
+#6번 문제
+def bin_search_closest(s,key):
+    if(s==[]):
+        return None
+    else:
+        
+        closeDepth = -1
+        minCloseDept = abs(key-max(s)) 
+        closeValue=-1
+        minCloseValue = -1
+        minCloseValueIdx = 0
+        closeValueIdx = 0
+        indexx = -1
+            #for val in s:
+        for i in range(0,len(s)):
+            val = s[i]
+            closeDepth = abs(key-val)
+            closeValue = val
+            indexx = indexx +1
+            if((closeDepth < minCloseDept) or minCloseDept ==-1):
+                minCloseDept = closeDepth
+                minCloseValue = closeValue
+                minCloseValueIdx = indexx
+        return minCloseValueIdx
                     
+def bin_search(ss,key): 
+    low = 0 
+    high = len(ss) - 1 
+    closeDepth = -1
+    minCloseDept = abs(key-max(ss)) 
+    closeValue=-1
+    minCloseValue = -1
+    minCloseValueIdx = 0
+    closeValueIdx = 0
+    indexx = 0
+    while low <= high: 
+        mid = (high + low) // 2 
+        val = ss[mid]
+        closeDepth = abs(key-val)
+        closeValue = val
+        print(low,high,mid,"key: ",key)
+        if((closeDepth < minCloseDept) or minCloseDept ==-1):
+            minCloseDept = closeDepth
+            minCloseValue = closeValue
+            minCloseValueIdx = mid 
+            return minCloseValueIdx 
+        elif key < ss[mid]: 
+            high = mid - 1 
+        else: 
+            low = mid + 1 
+    return None
+
+def test_bin_search(s,key): 
+    print("Binary search test") 
+    db = genrandlist(10000,1000) 
+    db.sort() 
+    db=s
+    for i in range(10): 
+        #key = random.randrange(len(s)) #random.randrange(10000) 
+        index = bin_search(db,key) 
+        print(key,"found at",index)
+
 def linear_search_closest(s,key):
     return seq_search_closest(s,key)
 
-print(linear_search_closest([5,2,7,15],5) )
+def test_seq_search_closest(): 
+    print("Sequential search test") 
+    db = genrandlist(10000,1000) 
+    for i in range(10): 
+        key = random.randrange(10000) 
+        index = seq_search_closest(db,key) 
+        print("The closest value to",key,":",db[index],"at index",index) 
+    key = random.randrange(10000) 
+    index = seq_search_closest([],key) 
+    print(key,"found at",index) # None
+    
+import random
+test_bin_search([5,2,7,15],5)
+
+#print(linear_search_closest([5,2,7,15],5) )
