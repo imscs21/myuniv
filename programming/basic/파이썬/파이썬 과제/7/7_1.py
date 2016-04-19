@@ -89,10 +89,10 @@ def find_all_sentence(filename,key) :
                     wordcount += 1
                     onesenten = onesenten[pos+len(key)-1:]
                     pos = onesenten.find(key)
-                    print(pos,sentencecount,wordcount)
+                    
                 
                 
-    print(key,"가","문장",sentencecount,"에서",wordcount,"번 등장")
+    
     outfile.write("'"+key+"'이(가) "+str(sentencecount)+"개 문장에서 "+str(wordcount)+"번 등장")
     outfile.close()      
     infile.close()      
