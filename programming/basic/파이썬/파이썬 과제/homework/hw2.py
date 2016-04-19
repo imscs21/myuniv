@@ -362,31 +362,8 @@ def seq_search_closest(s,key):
                 minCloseValueIdx = indexx
         return minCloseValueIdx
 #6번 문제
-def bin_search_closest(s,key):
-    if(s==[]):
-        return None
-    else:
-        
-        closeDepth = -1
-        minCloseDept = abs(key-max(s)) 
-        closeValue=-1
-        minCloseValue = -1
-        minCloseValueIdx = 0
-        closeValueIdx = 0
-        indexx = -1
-            #for val in s:
-        for i in range(0,len(s)):
-            val = s[i]
-            closeDepth = abs(key-val)
-            closeValue = val
-            indexx = indexx +1
-            if((closeDepth < minCloseDept) or minCloseDept ==-1):
-                minCloseDept = closeDepth
-                minCloseValue = closeValue
-                minCloseValueIdx = indexx
-        return minCloseValueIdx
                     
-def bin_search(ss,key): 
+def bin_search_closest(ss,key): 
     low = 0 
     high = len(ss) - 1 
     closeDepth = -1
@@ -396,32 +373,46 @@ def bin_search(ss,key):
     minCloseValueIdx = 0
     closeValueIdx = 0
     indexx = 0
+    if(ss==[]):
+        return None
     while low <= high: 
         mid = (high + low) // 2 
         val = ss[mid]
         closeDepth = abs(key-val)
         closeValue = val
-        print(low,high,mid,"key: ",key)
         if((closeDepth < minCloseDept) or minCloseDept ==-1):
             minCloseDept = closeDepth
             minCloseValue = closeValue
-            minCloseValueIdx = mid 
-            return minCloseValueIdx 
+            minCloseValueIdx = mid-1 
+             
+        elif key < ss[mid]: 
+            high = mid - 1 
+        else: 
+            low = mid + 1 
+        print(low,high,mid,"key: ",key)
+    return minCloseValueIdx
+    return None
+def bin_search(ss,key): 
+    low = 0 
+    high = len(ss) - 1 
+    while low <= high: 
+        mid = (high + low) // 2 
+        if key == ss[mid]: 
+            return mid 
         elif key < ss[mid]: 
             high = mid - 1 
         else: 
             low = mid + 1 
     return None
-
 def test_bin_search(s,key): 
     print("Binary search test") 
     db = genrandlist(10000,1000) 
     db.sort() 
     db=s
-    for i in range(10): 
+    for i in range(len(s)): 
         #key = random.randrange(len(s)) #random.randrange(10000) 
-        index = bin_search(db,key) 
-        print(key,"found at",index)
+        index = bin_search(db,s[i]) 
+        print(s[i],"found at",index)
 
 def linear_search_closest(s,key):
     return seq_search_closest(s,key)
