@@ -56,18 +56,13 @@ def one_sentence_per_line(filename) :
     outfile = open("result_4.txt","w")      
     text = infile.read()      
     count = 0 
-    
     while(text != '' or len(text)>0):
         (compare,sep1, text) = text.partition(".")
        
         while(compare != '' or len(compare)>0):
-            (compare2,sep2,compare) = (compare).partition("?")
-            outfile.write(compare2)
+            (compare2,sep2,compare) = (compare+sep1).partition("?")
+            outfile.write(compare2+sep2)
             count += 1
-        
-         
-    
-    
     outfile.write("\n문장이 총 " + str(count) + "개\n")      
     outfile.close() 
     infile.close() 
@@ -80,13 +75,11 @@ def find_all_sentence(filename,key) :
     wordcount = int(0)
     while(text != '' or len(text)>0):
         (compare,sep1, text) = text.partition(".")
-       
         while(compare != '' or len(compare)>0):
-            (compare2,sep2,compare) = (compare).partition("?")
+            (compare2,sep2,compare) = (compare+sep1).partition("?")
             pos = compare2.find(key)
-            
             if(pos != -1):
-                onesenten = compare2
+                onesenten = compare2+sep2
                 sentencecount +=1
                 outfile.write("'"+key+"'이(가) "+str(sentencecount)+"번 등장\n")
                 outfile.write(compare2+"\n")
@@ -94,10 +87,6 @@ def find_all_sentence(filename,key) :
                     wordcount += 1
                     onesenten = onesenten[pos+len(key)-1:]
                     pos = onesenten.find(key)
-                    
-                
-                
-    
     outfile.write("'"+key+"'이(가) "+str(sentencecount)+"개 문장에서 "+str(wordcount)+"번 등장")
     outfile.close()      
     infile.close()      
