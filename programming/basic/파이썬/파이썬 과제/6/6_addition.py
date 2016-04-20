@@ -1,20 +1,44 @@
+def partition(pivot,s): 
+    left, right = [], [] 
+    for x in s: 
+        if x <= pivot: 
+            left.append(x) 
+        else: 
+            right.append(x) 
+    return left, right
+    
+def oriqsort(s):
+    if len(s)>1:
+        pivot=s[0]
+        (left,right)=partition(pivot,s[1:])
+        return oriqsort(left+[pivot])+oriqsort(right)
+    else: 
+        return s
+
 def qsort(s):
-    print(s)
     if(len(s)>1):
         pivot=s[0]
         pivotIdx=0
-        for i in range(0,min(pivot,len(s))):
-            for j in range(min(i,len(s)-1),len(s)):
-                if(pivot>s[j]):
-                    s[i],s[j] = s[j],s[i]
-                    pivotIdx +=1
-        return qsort(s[:pivotIdx+1])+qsort(s[pivotIdx+1:])
+        leng = len(s)
+        lengD = leng//2
+        for i in range(0,leng):
+            if(s[i]<=pivot):
+                pivotIdx +=1
+        pivotIdx -=1
+        s[0],s[pivotIdx] = s[pivotIdx],s[0]
+        for k in range(0,pivotIdx):
+            print(pivotIdx,len(s))
+            for i in range(pivotIdx+1,len(s)):
+                if(s[i]<=pivot):
+                    s[k],s[i] = s[i],s[k]
+        s= qsort(s[:pivotIdx])+qsort([s[pivotIdx]])+qsort(s[pivotIdx+1:])
+        return s
     else:
         return s
 def msort(data):
     dataLen  = len(data)
     dataLenDiv = int(dataLen//2)
-    for i in range(0,dataLen+2):
+    for i in range(0,dataLen+2): #반복 횟수가 length/2 이지만 수가 많아질 경우를 고려
         for j in range(0,dataLenDiv):
             if(data[j] > data[j+1]):
                 data[j] , data[j+1] = data[j+1], data[j]
@@ -25,13 +49,13 @@ def msort(data):
         checkData = data
         if(len(data)>1):
             data= msort(data[:dataLenDiv])+ msort(data[dataLenDiv:])
-        notNeededContinue = True
+        isNeededContinue = False
         for j in range(0,len(data)):
            if(data[j] != checkData[j]):
-               notNeededContinue=False
+               isNeededContinue=True
                break
         del checkData
-        if(notNeededContinue):
+        if(not isNeededContinue):
             break
        
     return data
