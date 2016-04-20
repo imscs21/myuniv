@@ -1,33 +1,38 @@
-def merge0(left,right): 
-    print(left,right)
-    if not (left == [] or right == []): 
-        if left[0] <= right[0]: 
-            return [left[0]] + merge0(left[1:],right) 
-        else: 
-            return [right[0]] + merge0(left,right[1:]) 
-    else: 
-        return left + right
-
-def msort(s): 
-    if len(s) > 1: 
-        mid = len(s) // 2 
-        return merge0(msort(s[:mid]),msort(s[mid:])) 
-    else: 
+def qsort(s):
+    print(s)
+    if(len(s)>1):
+        pivot=s[0]
+        pivotIdx=0
+        for i in range(0,min(pivot,len(s))):
+            for j in range(min(i,len(s)-1),len(s)):
+                if(pivot>s[j]):
+                    s[i],s[j] = s[j],s[i]
+                    pivotIdx +=1
+        return qsort(s[:pivotIdx+1])+qsort(s[pivotIdx+1:])
+    else:
         return s
-def remerge(data):
+def msort(data):
     dataLen  = len(data)
     dataLenDiv = int(dataLen//2)
-    for i in range(0,dataLenDiv,dataLenDiv//2):
-        for k in range(i-2,i+dataLenDiv//2):
-            print(data[:dataLenDiv+1])
-            if(data[k] >= data[k+1]):
-                data[k] , data[k+1] = data[k+1], data[k]
-    for i in range(dataLenDiv,dataLen-1,dataLenDiv//2):
-        for k in range(dataLenDiv,dataLen-1, (dataLen-dataLenDiv)//2):
-            if(data[k] >= data[k+1]):
-                data[k], data[k+1] = data[k+1] , data[k]
-    #for i in range(0,dataLen-1):
-    #    if(data[i] >= data[i+1]):
-    #        data[i],data[i+1] = data[i+1] , data[i]
+    for i in range(0,dataLen+2):
+        for j in range(0,dataLenDiv):
+            if(data[j] > data[j+1]):
+                data[j] , data[j+1] = data[j+1], data[j]
+    
+        for j in range(dataLenDiv,dataLen-1):
+            if(data[j] > data[j+1]):
+                data[j], data[j+1] = data[j+1] , data[j]
+        checkData = data
+        if(len(data)>1):
+            data= msort(data[:dataLenDiv])+ msort(data[dataLenDiv:])
+        notNeededContinue = True
+        for j in range(0,len(data)):
+           if(data[j] != checkData[j]):
+               notNeededContinue=False
+               break
+        del checkData
+        if(notNeededContinue):
+            break
+       
     return data
-print(remerge([32,23,18,7,11,99,55])) #[1,5,2,4,3]))
+print(msort([32,990,23,1000,3000,6000,170,310,18,999999,2000,7,11,99,700,55])) #[1,5,2,4,3]))

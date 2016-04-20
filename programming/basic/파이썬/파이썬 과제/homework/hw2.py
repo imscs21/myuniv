@@ -5,32 +5,42 @@
 def remove_one1(s,x):
     if(s != []):
         if(s[0]!=x ):
+            """
             temp =[]
+            
             temp.append( s[0])
             if(s != [] ):
                 temp.extend( remove_one1(s[1:],x))
             return temp
+            """
+            return [s[0]]+remove_one1(s[1:],x)
         else:
             return  s[1:]
     else:
         return s   
 
+
 def remove_one2(s,x):
     def loop(s,x,left):
         if(s!=[]):
-            if(s[0]!=x and s != []):
+            if(s[0]!=x):
+                return loop(s[1:],x,left+[s[0]])
+                """
                 tleft = left
                 tleft.append(s[0])
                 return loop(s[1:],x,tleft)
+                """
             else:
+                """
                 if(s!=[]):
                     left.extend(s[1:])
-                return left
+                """
+                return loop([],x,left+s[1:])
         else:
             return left
     return loop(s,x,[])
 
-    
+
 
 def remove_one3(s,x):
     left=[]
@@ -40,16 +50,22 @@ def remove_one3(s,x):
     if(s != []):
         
         while(s[0] != x):
-            left.append(s[0])
+            
+            left += [s[0]]
+            #left.append(s[0])
             s=s[1:]
+           
             if(s==[]):
                 break;
         if(s!=[]):
-            left.extend(s[1:])
+            left += s[1:]
+            #left.extend(s[1:])
     return left
-    
+
+   
 #1-나
 def remove_all1(s,x):
+    """
     result = []
     result = s
     tresult = result
@@ -59,11 +75,19 @@ def remove_all1(s,x):
         return tresult
     else:
         return remove_all1(tresult,x)
-    
+    """
+    if(s != []):
+        if(s[0]!=x ):
+            return [s[0]]+remove_all1(s[1:],x)
+        else:
+            return  remove_all1(s[1:],x)
+    else:
+        return s
     
   
-    
+      
 def remove_all2(s,x):
+    """
     def loop(s,x,left,length,idx,result):
         if(idx < length):
            tresult = result;
@@ -76,8 +100,23 @@ def remove_all2(s,x):
         else:
             return result
     return loop(s,x,[],len(s),0,s)
+    """
+    def loop(s,x,left):
+        if(s!=[]):
+            if(s[0]!=x):
+                return loop(s[1:],x,left+[s[0]])
+                
+            else:
+                return loop(s[1:],x,left)
+        else:
+            return left
+    return loop(s,x,[])
+    
+    
+
 
 def remove_all3(s,x):
+    """
     length = len(s)
     idx=int(0)
     result = []
@@ -92,15 +131,30 @@ def remove_all3(s,x):
         idx +=int(1)
         
     return result
+    """
+    left=[]
+    while(s != []): 
+        while(s[0] != x):
+            left += [s[0]]
+            s=s[1:]
+           
+            if(s==[]):
+                break;
+        s=s[1:]
+    return left
+    
+    
 #1-다
 def take1(s,x):
     
     if(s!=[]):
         if(s[0]!=x):
+            """
             result = []
             result.append(s[0])
             result.extend(take1(s[1:],x))
-            return result
+            """
+            return [s[0]]+take1(s[1:],x) #result
         else:
             return []
         
@@ -111,23 +165,29 @@ def take2(s,x):
     def loop(s,x,left):
         if(s !=[]):
             if(s[0] != x):
-                left.append(s[0])
-                return loop(s[1:],x,left)
+                
+                #left.append(s[0])
+                return loop(s[1:],x,left+[s[0]])
             else:
-                return left
+                return loop([],x,left)
         else:
             return left
     return loop(s,x,[])
+    
+
     
 def take3(s,x):
     left = []
     if(s !=[]):
         while (s[0] !=x):
-            left.append(s[0])
+            left += [s[0]]
+            #left.append(s[0])
             s=s[1:]
             if(s==[]):
                 break;
     return left
+
+
 
 #2번 문제
 #===================
@@ -146,7 +206,7 @@ def union1(xs,ys):
         result =xs
         result.extend(ys)
         return result
-    
+  
 def union2(xs,ys):
     def loop(xs,ys,result):
         if(not(xs==[] or ys == [])):
@@ -185,12 +245,15 @@ def union3(xs,ys):
 #2-나
 def intersection1(xs,ys):
     if(xs != []):
-        for j in ys:
+        for j in ys:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
             if(xs[0] == j ):
+                """
                 temp =[]
                 temp.append( j)
                 temp.extend( intersection1(xs[1:],ys))
                 return temp
+                """
+                return [j] + intersection1(xs[1:],ys)
         return  intersection1(xs[1:],ys)#xs[1:]
     else:
         return []
@@ -198,11 +261,14 @@ def intersection1(xs,ys):
 def intersection2(xs,ys):
     def loop(xs,ys,result):
        
-        if(xs != []):    
-            for j in ys:
+        if(xs != []):
+               
+            for j in ys: #리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
                 if(xs[0]==j):
-                    result.append(j)
-            return loop(xs[1:],ys,result)
+                    result += [j]
+                    #result.append(j)
+            return loop(xs[1:],ys,result)#이경우 꼬리재귀 형식을 크게 벗어나지 않는다고 생각합니다
+            
         else: return result
     return loop(xs,ys,[])
     
@@ -214,7 +280,7 @@ def intersection3(xs,ys):
     leny = len(ys)
     leng=0
     while(leng<lenx):
-        for val in tempys:
+        for val in tempys:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
             if(tempxs[leng] == val):
                 result.append(val)
                 tempys = remove_one3(tempys,val)
@@ -222,6 +288,8 @@ def intersection3(xs,ys):
         leng += 1
     return result
     
+    
+print(intersection2([5,2,1,6],[1,9,8,7,2]))
 #2-다 (xs 에서 ys빼기)
 def difference1(xs,ys):
     ys = intersection1(xs,ys)
