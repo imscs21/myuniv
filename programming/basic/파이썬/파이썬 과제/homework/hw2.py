@@ -5,14 +5,6 @@
 def remove_one1(s,x):
     if(s != []):
         if(s[0]!=x ):
-            """
-            temp =[]
-            
-            temp.append( s[0])
-            if(s != [] ):
-                temp.extend( remove_one1(s[1:],x))
-            return temp
-            """
             return [s[0]]+remove_one1(s[1:],x)
         else:
             return  s[1:]
@@ -25,16 +17,8 @@ def remove_one2(s,x):
         if(s!=[]):
             if(s[0]!=x):
                 return loop(s[1:],x,left+[s[0]])
-                """
-                tleft = left
-                tleft.append(s[0])
-                return loop(s[1:],x,tleft)
-                """
+                
             else:
-                """
-                if(s!=[]):
-                    left.extend(s[1:])
-                """
                 return loop([],x,left+s[1:])
         else:
             return left
@@ -52,30 +36,18 @@ def remove_one3(s,x):
         while(s[0] != x):
             
             left += [s[0]]
-            #left.append(s[0])
             s=s[1:]
            
             if(s==[]):
                 break;
         if(s!=[]):
             left += s[1:]
-            #left.extend(s[1:])
+            
     return left
 
    
 #1-나
 def remove_all1(s,x):
-    """
-    result = []
-    result = s
-    tresult = result
-    tresult = remove_one1(tresult,x)
-    if(len(tresult) == len(result)):
-        del result
-        return tresult
-    else:
-        return remove_all1(tresult,x)
-    """
     if(s != []):
         if(s[0]!=x ):
             return [s[0]]+remove_all1(s[1:],x)
@@ -87,20 +59,6 @@ def remove_all1(s,x):
   
       
 def remove_all2(s,x):
-    """
-    def loop(s,x,left,length,idx,result):
-        if(idx < length):
-           tresult = result;
-           tresult = remove_one2(tresult,x)
-           if(len(tresult) == len(result)):
-               return result
-           result = tresult
-           del tresult
-           return loop(s,x,left,length,idx+1,result)
-        else:
-            return result
-    return loop(s,x,[],len(s),0,s)
-    """
     def loop(s,x,left):
         if(s!=[]):
             if(s[0]!=x):
@@ -116,22 +74,6 @@ def remove_all2(s,x):
 
 
 def remove_all3(s,x):
-    """
-    length = len(s)
-    idx=int(0)
-    result = []
-    result = s
-    while(idx<length):
-        tresult = result
-        tresult = remove_one2(tresult,x)
-        if(len(tresult) == len(result) ):
-            break;
-        result = tresult
-        del tresult;
-        idx +=int(1)
-        
-    return result
-    """
     left=[]
     while(s != []): 
         while(s[0] != x):
@@ -149,12 +91,7 @@ def take1(s,x):
     
     if(s!=[]):
         if(s[0]!=x):
-            """
-            result = []
-            result.append(s[0])
-            result.extend(take1(s[1:],x))
-            """
-            return [s[0]]+take1(s[1:],x) #result
+            return [s[0]]+take1(s[1:],x) 
         else:
             return []
         
@@ -165,8 +102,6 @@ def take2(s,x):
     def loop(s,x,left):
         if(s !=[]):
             if(s[0] != x):
-                
-                #left.append(s[0])
                 return loop(s[1:],x,left+[s[0]])
             else:
                 return loop([],x,left)
@@ -181,7 +116,6 @@ def take3(s,x):
     if(s !=[]):
         while (s[0] !=x):
             left += [s[0]]
-            #left.append(s[0])
             s=s[1:]
             if(s==[]):
                 break;
@@ -192,132 +126,175 @@ def take3(s,x):
 #2번 문제
 #===================
 #2-가
+#(2-가)는 intersection 함수를 쓰는 것은 파이썬 함수 정의 순서상(name not found 혹은 no def func)으로 좋지 않고 
+#1번 문제의 함수만은 사용가능하다 했기 떄문에 강제로 intersection3함수를 각 union,difference 내부에서 한번 더 정의함
 def union1(xs,ys):
     if(not (xs==[] or ys == [])):
-        result = []
-        inter = intersection1(xs,ys)
-        for val in inter:
-            ys = remove_one1(ys,val)
+        inter =[] #intersection1(xs,ys)
+        tempxs2 = xs
+        tempys2 = ys
+        while(tempxs2 != []):
+            for val in tempys2:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
+                if(tempxs2[0] ==val):
+                    inter += [val]
+                    tempys2 = remove_one3(tempys2,val)
+                    break
+            tempxs2 = tempxs2[1:]
+        del tempxs2,tempys2
+        
+        if(inter !=[]):
+            for val in inter:
+                ys = remove_one1(ys,val)
         del inter
-        result.extend([xs[0],ys[0]])
-        result.extend(union1(xs[1:],ys[1:]))
-        return result
+        if(ys == []):
+            return [xs[0]]+union1(xs[1:],ys[1:])
+        return [xs[0],ys[0]]+union1(xs[1:],ys[1:])
     else:
-        result =xs
-        result.extend(ys)
-        return result
+        return xs+ys 
   
 def union2(xs,ys):
     def loop(xs,ys,result):
         if(not(xs==[] or ys == [])):
-            inter = intersection2(xs,ys)
+            inter =[] #intersection1(xs,ys)
+            tempxs2 = xs
+            tempys2 = ys
+            while(tempxs2 != []):
+                for val in tempys2:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
+                    if(tempxs2[0] ==val):
+                        inter += [val]
+                        tempys2 = remove_one3(tempys2,val)
+                        break
+                tempxs2 = tempxs2[1:]
+            del tempxs2,tempys2
             for val in inter:
                 ys = remove_one2(ys,val)
             del inter
-            result.append(xs[0])
-            result.append(ys[0])
-            return loop(xs[1:],ys[1:],result)
-            
+            if(ys==[]):
+                return loop(xs[1:],ys,result+[xs[0]])
+            return loop(xs[1:],ys[1:],result+[xs[0],ys[0]])    
         else:
-            result.extend(xs)
-            result.extend(ys)
-            
-            return result;
+            return result+xs+ys;
     return loop(xs,ys,[])
     
 def union3(xs,ys):
-    tempxs = xs
-    tempys = ys
-    result=[]
-    while(not(tempxs==[] or tempys == [])):
-        result.append(tempxs[0])
-        result.append(tempys[0])
-        tempxs = tempxs[1:]
-        tempys = tempys[1:]
-    result.extend(tempxs)
-    result.extend(tempys)
+    result=xs+ys
     inter = intersection3(xs,ys)
-    for v in inter:
-        result = remove_one3(result,v)
+    while((inter != [])):
+        result =remove_one3(result,inter[0])
+        inter = inter[1:]
     del inter
     return result
+    
 
+#print("union3",union3([5,2,1,6],[1,9,8,7,2]))
 #2-나
 def intersection1(xs,ys):
     if(xs != []):
         for j in ys:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
             if(xs[0] == j ):
-                """
-                temp =[]
-                temp.append( j)
-                temp.extend( intersection1(xs[1:],ys))
-                return temp
-                """
                 return [j] + intersection1(xs[1:],ys)
-        return  intersection1(xs[1:],ys)#xs[1:]
+                break
+        return  []+intersection1(xs[1:],ys)
     else:
         return []
-    
+
 def intersection2(xs,ys):
     def loop(xs,ys,result):
-       
-        if(xs != []):
-               
+        if(xs != []): 
             for j in ys: #리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
                 if(xs[0]==j):
-                    result += [j]
-                    #result.append(j)
-            return loop(xs[1:],ys,result)#이경우 꼬리재귀 형식을 크게 벗어나지 않는다고 생각합니다
+                    return loop(xs[1:],ys,result+[j])
+                    break
+            return loop(xs[1:],ys,[]+ result)#이경우 꼬리재귀 형식을 크게 벗어나지 않는다고 생각합니다
             
         else: return result
     return loop(xs,ys,[])
-    
+      
 def intersection3(xs,ys):
-    tempxs = xs
-    tempys = ys
+    tempxs2 = xs
+    tempys2 = ys
     result = []
-    lenx = len(xs)
-    leny = len(ys)
-    leng=0
-    while(leng<lenx):
-        for val in tempys:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
-            if(tempxs[leng] == val):
-                result.append(val)
-                tempys = remove_one3(tempys,val)
-                break;
-        leng += 1
+    while(tempxs2 != []):
+        for val in tempys2:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
+            if(tempxs2[0] ==val):
+                result += [val]
+                tempys2 = remove_one3(tempys2,val)
+                break
+        tempxs2 = tempxs2[1:]
+    del tempxs2,tempys2
     return result
     
-    
-print(intersection2([5,2,1,6],[1,9,8,7,2]))
+
 #2-다 (xs 에서 ys빼기)
 def difference1(xs,ys):
-    ys = intersection1(xs,ys)
     if(ys != []):
-        xs = remove_one1(xs,ys[0])
-        return difference1(xs,ys[1:])
+        tempxs2 = xs
+        tempys2 = ys
+        result =[]
+        while(tempxs2 != []):
+            for val in tempys2:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
+                if(tempxs2[0] ==val):
+                    result += [val]
+                    tempys2 = remove_one3(tempys2,val)
+                    break
+            tempxs2 = tempxs2[1:]
+        ys = result
+        del tempxs2,tempys2,result
+        if(ys!=[]):
+            xs = remove_one1(xs,ys[0])
+            return []+difference1(xs,ys[1:])
+        return []+difference1(xs,ys)
     else:   
         return xs
+        
+  
 def difference2(xs,ys):
     def loop(xs,ys,result):
-        ys = intersection2(xs,ys)
+        #ys = intersection2(xs,ys)
         if(ys != []):
-            xs = remove_one2(xs,ys[0])
-            result = xs
-            return loop(xs,ys[1:],result)    
+            tempxs2 = xs
+            tempys2 = ys
+            inter = []
+            while(tempxs2 != []):
+                for val in tempys2:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
+                    if(tempxs2[0] ==val):
+                        inter += [val]
+                        tempys2 = remove_one3(tempys2,val)
+                        break
+                tempxs2 = tempxs2[1:]
+            ys = inter
+            del tempxs2,tempys2,result
+            if(ys!=[]):
+                xs = remove_one2(xs,ys[0])
+                return loop(xs,ys[1:],xs)
+            return loop(xs,ys,xs)    
         else:
             
             return result
     return loop(xs,ys,[])
     
+
 def difference3(xs,ys):
-    inter = intersection2(xs,ys)
+    tempxs2 = xs
+    tempys2 = ys
+    inter = []
+    while(tempxs2 != []):
+        for val in tempys2:#리스트의 순서가 일정하지 않을 경우를 대비해 비효율적이라도 체크하고 가는 로직
+            if(tempxs2[0] ==val):
+                inter += [val]
+                tempys2 = remove_one3(tempys2,val)
+                break
+        tempxs2 = tempxs2[1:]
+    del tempxs2,tempys2
+
     result=xs
     while(inter != []):
         result = remove_one3(result,inter[0])
         inter = inter[1:]
     return result
-    
+
+
+#print("difference3",difference3([5,2,1,6],[1,9,8,7,2]))   
 #문제 3
 def greatest0(s): 
     def loop(s,top): 
@@ -401,68 +378,33 @@ def longest_repetition(s):
     else: 
         return (None,0)
 
-def genrandlist(m,n): 
-    return [random.randrange(m) for _ in range(n)]
-
 
 #5번 문제
 def seq_search_closest(s,key):
     if(s==[]):
         return None
     else:
-        
         closeDepth = -1
-        minCloseDept = abs(key-max(s)) 
-        closeValue=-1
-        minCloseValue = -1
+        minCloseDept = max(abs(key-min(s)),abs(key-max(s)))
         minCloseValueIdx = 0
         closeValueIdx = 0
         indexx = -1
-            #for val in s:
         for i in range(0,len(s)):
             val = s[i]
             closeDepth = abs(key-val)
-            closeValue = val
             indexx = indexx +1
             if((closeDepth < minCloseDept) or minCloseDept ==-1):
                 minCloseDept = closeDepth
-                minCloseValue = closeValue
                 minCloseValueIdx = indexx
         return minCloseValueIdx
 #6번 문제
-                    
 def bin_search_closest(ss,key): 
     low = 0 
     high = len(ss) - 1 
     closeDepth = -1
-    minCloseDept = abs(key-max(ss)) 
-    closeValue=-1
-    minCloseValue = -1
+    closeValueIdx = -1
+    minCloseDept = max(abs(key-min(ss)),abs(key-max(ss))) #max(ss)-min(ss)
     minCloseValueIdx = 0
-    closeValueIdx = 0
-    indexx = 0
-    if(ss==[]):
-        return None
-    while low <= high: 
-        mid = (high + low) // 2 
-        val = ss[mid]
-        closeDepth = abs(key-val)
-        closeValue = val
-        if((closeDepth < minCloseDept) or minCloseDept ==-1):
-            minCloseDept = closeDepth
-            minCloseValue = closeValue
-            minCloseValueIdx = mid-1 
-             
-        elif key < ss[mid]: 
-            high = mid - 1 
-        else: 
-            low = mid + 1 
-        print(low,high,mid,"key: ",key)
-    return minCloseValueIdx
-    return None
-def bin_search(ss,key): 
-    low = 0 
-    high = len(ss) - 1 
     while low <= high: 
         mid = (high + low) // 2 
         if key == ss[mid]: 
@@ -471,32 +413,12 @@ def bin_search(ss,key):
             high = mid - 1 
         else: 
             low = mid + 1 
-    return None
-def test_bin_search(s,key): 
-    print("Binary search test") 
-    db = genrandlist(10000,1000) 
-    db.sort() 
-    db=s
-    for i in range(len(s)): 
-        #key = random.randrange(len(s)) #random.randrange(10000) 
-        index = bin_search(db,s[i]) 
-        print(s[i],"found at",index)
+        closeDepth = abs(key-ss[mid])
+        closeValueIdx = mid
+        if(closeDepth<minCloseDept):
+            minCloseDept = closeDepth
+            minCloseValueIdx = closeValueIdx
+    return minCloseValueIdx
 
-def linear_search_closest(s,key):
-    return seq_search_closest(s,key)
 
-def test_seq_search_closest(): 
-    print("Sequential search test") 
-    db = genrandlist(10000,1000) 
-    for i in range(10): 
-        key = random.randrange(10000) 
-        index = seq_search_closest(db,key) 
-        print("The closest value to",key,":",db[index],"at index",index) 
-    key = random.randrange(10000) 
-    index = seq_search_closest([],key) 
-    print(key,"found at",index) # None
-    
-import random
-test_bin_search([5,2,7,15],5)
-
-#print(linear_search_closest([5,2,7,15],5) )
+#print(seq_search_closest([1,5,12,30,60,200],400))
