@@ -73,15 +73,16 @@ def msort(data):
                 print("bDr1: ",data[offsetIndex:midIdx])
                 print("bDr2: ",data[midIdx:offsetIndex+dataLen])
                 print(offsetIndex,midIdx,dataLen,dataLenDiv)
-                if(data[offsetIndex]>data[midIdx]):#offsetIndex에서 클때
+                if(data[offsetIndex:midIdx] != [] and data[midIdx:offsetIndex+dataLen] != []):
+                    if(data[offsetIndex]>data[midIdx]):#offsetIndex에서 클때
                     #midIdx에서 작을때 dr2[0]을 팝 dr1길이 그대로
-                    data[offsetIndex],data[offsetIndex+1:midIdx+1] = data[midIdx],data[offsetIndex:midIdx]
+                        data[offsetIndex],data[offsetIndex+1:midIdx+1] = data[midIdx],data[offsetIndex:midIdx]
                     #최종적으로 현재 offsetIndex에서 작을때
-                    mergeIndexCountControl = mergeIndexCountControl
-                else:
+                        mergeIndexCountControl = mergeIndexCountControl
+                    else:
                     #offsetIndex에서 작을때
                     #dr1[0]을 팝 dr2길이 그대로
-                    mergeIndexCountControl = mergeIndexCountControl -1
+                        mergeIndexCountControl = mergeIndexCountControl -1
                 if(dataLen-1<3):
                     mergeIndexCountControl= (dataLen-1)//2
                 
@@ -98,7 +99,7 @@ def msort(data):
             return data
     return loop(data,0,len(data)-1,0,len(data)-1,False,True,False,-2)
     
-print( qsort([777777,32,990,23,1000,3000,6000,170,310,18,999999,2000,7,11,99,700,55])) #[1,5,2,4,3]))
+print( msort([i for i in range(30,0,-1)])) #[777777,32,990,23,1000,3000,6000,170,310,18,999999,2000,7,11,99,700,55])) #[1,5,2,4,3]))
 
 
 #original

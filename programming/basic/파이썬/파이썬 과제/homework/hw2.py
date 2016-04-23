@@ -443,6 +443,8 @@ def seq_search_closest(s,key):
 #따라서 6번문제에서 랜덤배열이나 내림차순배열같은 심한짓은 말아주세요;;;; :(
 def bin_search_closest(ss,key):
     if(ss == []):
+    
+    
         return None 
     low  ,high,closeDepth,closeValueIdx = 0,(len(ss) - 1 ), -1,-1
     minCloseDept,minCloseValueIdx = max(abs(key-min(ss)),abs(key-max(ss))),0
