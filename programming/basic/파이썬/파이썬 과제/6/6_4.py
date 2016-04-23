@@ -10,7 +10,7 @@ def merge0(left,right):
 #실습 8
 def merge1(left,right): 
     def loop(left,right,ss): 
-        print("sleft:  ",ss,"left: ",left,"right: ",right)
+        #print("sleft:  ",ss,"left: ",left,"right: ",right)
         if not (left == [] or right == []): 
             if left[0] <= right[0]: 
                 ss.append(left[0]) 
@@ -38,7 +38,8 @@ def msort(s):
   
     if len(s) > 1: 
         mid = len(s) // 2 
-        return merge(msort(s[:mid]),msort(s[mid:])) 
+        return merge1(msort(s[:mid]),msort(s[mid:])) 
     else: 
         return s
 
+print(msort([32,990,23,1000,3000,6000,170,310,18,999999,2000,7,11,99,700,55])) #[1,5,2,4,3]))

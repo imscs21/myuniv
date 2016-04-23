@@ -87,6 +87,47 @@ def remove_all3(s,x):
     
     
 #1-다
+def take1(s,n):
+    
+    if(s!=[] and n>= 0):
+        v = s[n]
+        if(s[0]!=v):
+            
+            return [s[0]]+take1(s[1:],n-1) 
+        else:
+            return []
+        
+    else:
+        return s
+
+def take2(s,n):
+    def loop(s,n,left):
+        if(s !=[] and n>=0):
+            x = s[n]
+            if(s[0] != x):
+                return loop(s[1:],n-1,left+[s[0]])
+            else:
+                return loop([],n-1,left)
+        else:
+            return left
+    return loop(s,n,[])
+    
+
+    
+def take3(s,n):
+    left = []
+    if(s !=[] and n>=0):
+        x = s[n]
+        while (s[0] !=x and n>=0):
+            left += [s[0]]
+            s=s[1:]
+            n=n-1
+            if(n<0):
+                break;
+            x=s[n]
+    return left
+print(take3([1,5,2,8,3,0,6],1))
+"""
 def take1(s,x):
     
     if(s!=[]):
@@ -120,7 +161,7 @@ def take3(s,x):
             if(s==[]):
                 break;
     return left
-
+"""
 
 
 #2번 문제
@@ -250,7 +291,6 @@ def difference1(xs,ys):
   
 def difference2(xs,ys):
     def loop(xs,ys,result):
-        #ys = intersection2(xs,ys)
         if(ys != []):
             tempxs2 = xs
             tempys2 = ys
@@ -386,18 +426,39 @@ def seq_search_closest(s,key):
     else:
         closeDepth = -1
         minCloseDept = max(abs(key-min(s)),abs(key-max(s)))
-        minCloseValueIdx = 0
-        closeValueIdx = 0
-        indexx = -1
+        minCloseValueIdx,closeValueIdx,indexx = 0,0,-1
         for i in range(0,len(s)):
             val = s[i]
             closeDepth = abs(key-val)
             indexx = indexx +1
             if((closeDepth < minCloseDept) or minCloseDept ==-1):
-                minCloseDept = closeDepth
-                minCloseValueIdx = indexx
+                minCloseDept,minCloseValueIdx = closeDepth,indexx
         return minCloseValueIdx
 #6번 문제
+#위키를 언급하면 이분검색은 오름차순으로 정렬된 배열'만' 가능
+# https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%A7%84_%EA%B2%80%EC%83%89_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98
+#원본 이분검색 알고리즘으로 랜덤배열검색해도 인덱스번호 잘못 찿음
+#오름차순이 아닌 배열을 오름차순배열하면 배열값에대한 모든 인덱스 번호 달라짐
+#해시테이블 저장은 효율이 안좋고 테이블에서 근사 인덱스값을 역으로 찿아가는것도 코드수를 3배이상 늘려가고 알고리즘도 비효울적
+#따라서 6번문제에서 랜덤배열이나 내림차순배열같은 심한짓은 말아주세요;;;; :(
+def bin_search_closest(ss,key):
+    if(ss == []):
+        return None 
+    low  ,high,closeDepth,closeValueIdx = 0,(len(ss) - 1 ), -1,-1
+    minCloseDept,minCloseValueIdx = max(abs(key-min(ss)),abs(key-max(ss))),0
+    while low <= high: 
+        mid = (high + low) // 2 
+        if key == ss[mid]: 
+            return mid 
+        elif key < ss[mid]: 
+            high = mid - 1 
+        else: 
+            low = mid + 1 
+        closeDepth,closeValueIdx = abs(key-ss[mid]),mid
+        if(closeDepth<minCloseDept):
+            minCloseDept,minCloseValueIdx = closeDepth,closeValueIdx
+    return minCloseValueIdx
+"""
 def bin_search_closest(ss,key): 
     low = 0 
     high = len(ss) - 1 
@@ -420,5 +481,5 @@ def bin_search_closest(ss,key):
             minCloseValueIdx = closeValueIdx
     return minCloseValueIdx
 
-
-#print(seq_search_closest([1,5,12,30,60,200],400))
+"""
+print(seq_search_closest([1,5,12,30,60,200],10))
