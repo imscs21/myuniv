@@ -36,6 +36,7 @@ def qsort(s):
                         s[k],s[i] = s[i],s[k]
             loop(s,offsetIndex,pivotIdx-1,True)
             loop(s,pivotIdx+1,endIndex,False)
+            """
             for j in range(0,len(s)):
                 if(s[j] != checkData[j]):
                     isNeededContinue=True
@@ -43,6 +44,7 @@ def qsort(s):
             del checkData
             if(not isNeededContinue):
                 return s
+            """
             return s
         else:
             return s
