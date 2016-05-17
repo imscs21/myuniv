@@ -334,6 +334,16 @@ def difference3(xs,ys):
     return result
 
 
+print("take")
+print(take1([2,2,2,2],2))
+print(take2([2,2,2,2],2))
+print(take3([2,2,2,2],2))
+
+
+print("difference")
+print(difference1([1,2],[2,3]))
+print(difference2([1,2],[2,3]))
+print(difference3([1,2],[2,3]))
 #print("difference3",difference3([5,2,1,6],[1,9,8,7,2]))   
 #문제 3
 def greatest0(s): 
