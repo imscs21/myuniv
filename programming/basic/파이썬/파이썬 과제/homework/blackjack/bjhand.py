@@ -65,12 +65,12 @@ class PlayerHand(Hand):
     def earn_chips(self, n):
         """increases the number of chips by n"""
         self.__chips += n
-        print("Your have", self.__chips, "chips.")
+        print("Your("+self.name+") have", self.__chips, "chips.")
         
     def lose_chips(self, n):
         """decreases the number of chips by n"""
         self.__chips -= n
-        print("Your have", self.__chips, "chips.")
+        print("Your("+self.name+") have", self.__chips, "chips.")
 
 
 
