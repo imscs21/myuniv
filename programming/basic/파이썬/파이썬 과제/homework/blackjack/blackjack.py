@@ -50,9 +50,9 @@ class BlackjackController:
                     self.__players[i].lose_chips(1)
                 else:
                     self.__PTOs[i] = True 
-                
-        while dealer.total <= 16:
-                dealer.get(deck.next())
+        if(sum(self.__PTOs) > 0):
+            while dealer.total <= 16:
+                    dealer.get(deck.next())
         
         for i in range(0,len(self.__players)):
             if(self.__PTOs[i]):

@@ -60,8 +60,8 @@ class App(Frame):
         entryFirIdx += 1
         
         Button(self, text=SData.getExitBtnTxt(), command=self.quit).grid(row=rowOffset, column=3, columnspan=2)
-        Label(self,text="test").grid()
-        Label(self,text="test2").grid()
+        #Label(self,text="test").grid()
+        #Label(self,text="test2").grid()
         #print(self.entrys)
         #print(len(self.entrys[0]))
     def c2f(self):
