@@ -32,8 +32,7 @@ class BlackjackController:
         #player.get(deck.next())
         self.__dealer.get(deck.next(open=False))
         #2바퀴 나누기
-        dealerOriginal = self.__dealer#공통 딜러 설정
-        #dealer=
+        dealer = self.__dealer#공통 딜러 설정
         for i in range(0,len(self.__players)): # 플레이어당 플레이
         
             print("Dealer :", dealer)#딜러 상황
