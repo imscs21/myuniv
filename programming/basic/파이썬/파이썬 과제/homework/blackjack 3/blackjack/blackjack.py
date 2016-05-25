@@ -25,16 +25,34 @@ class BlackjackController:
         
         for i in range(0,len(self.__players)):
             self.__players[i].get(deck.next())
-        self.__dealer.get(deck.next())
+        dd1 = deck.next()
+        self.__dealer.get(dd1)
         #1바퀴 나누기
         for i in range(0,len(self.__players)):
             self.__players[i].get(deck.next())
         #player.get(deck.next())
-        self.__dealer.get(deck.next(open=False))
+        dd2 = deck.next(open=False)
+        self.__dealer.get(dd2)
         #2바퀴 나누기
-        dealer = self.__dealer#공통 딜러 설정
-        for i in range(0,len(self.__players)): # 플레이어당 플레이
+        dealerOriginal = self.__dealer#임시딜러 설정
+        additionalCards = []
+        checkd = Hand()
+        checkd.get(dd1)
+        checkd.get(dd2)
         
+        while checkd.total <= 16:
+            crd = deck.next()
+            checkd.get(crd)
+            additionalCards.append(crd)
+        dealer = None
+        isCardOpened =False
+        for i in range(0,len(self.__players)): # 플레이어당 플레이
+            dealer = Hand() #공통딜러 
+            dealer.get(dd1)
+            if(isCardOpened):
+                dd2.flip()
+                isCardOpened=False
+            dealer.get(dd2)
             print("Dealer :", dealer)#딜러 상황
             print(self.__players[i].name, ":", self.__players[i])#플레이어 상황
             if self.__players[i].total == 21:
@@ -49,30 +67,29 @@ class BlackjackController:
                     print(self.__players[i].name, "busts!")
                     self.__players[i].lose_chips(1)
                 else:
-                    self.__PTOs[i] = True 
-        if(sum(self.__PTOs) > 0):
-            while dealer.total <= 16:
-                    dealer.get(deck.next())
+                    
+                    for crd in additionalCards:
+                        
+                        dealer.get(crd) 
+                        
+                    if dealer.total > 21:
+                        print("Dealer busts!")
+                        self.__players[i].earn_chips(1)
+                    elif dealer.total == self.__players[i].total:
+                        print("We draw.")
+                    elif dealer.total > self.__players[i].total:
+                        print(self.__players[i].name, "loses.")
+                        self.__players[i].lose_chips(1)
+                    else:
+                        print(self.__players[i].name, "wins.")
+                        self.__players[i].earn_chips(1)
         
-        for i in range(0,len(self.__players)):
-            if(self.__PTOs[i]):
-                self.__PTOs[i] = False
-                if dealer.total > 21:
-                    print("Dealer busts!")
-                    self.__players[i].earn_chips(1)
-                elif dealer.total == self.__players[i].total:
-                    print("We draw.")
-                elif dealer.total > self.__players[i].total:
-                    print(self.__players[i].name, "loses.")
-                    self.__players[i].lose_chips(1)
-                else:
-                    print(self.__players[i].name, "wins.")
-                    self.__players[i].earn_chips(1)
-        self.__dealer.open()
-        print("Dealer :", self.__dealer)
-        for i in range(0,len(self.__players)):
+                dealer.open()
+                isCardOpened = True
+                print("Dealer :", dealer)
             self.__players[i].clear()
-        dealer.clear()
+            dealer.clear()
+        
 
 def main():
     # main procedure
@@ -82,15 +99,14 @@ def main():
         count = input("Player Count:")
     count = int(count)
     names = [Reader.register() for _ in range(count)]
-    #name = Reader.register()
     game = BlackjackController(names)
     loopControl = True
     while loopControl:
         game.play()
-        for i in range(0,count):
-            if not Reader.ox("Play more, " + names[i] + "? (o/x) "):
-                loopControl = False
-                break
+        if not Reader.ox("Play more" + "? (o/x) "):
+            loopControl=False
+            break
+        
     for i in range(0,count):
         print("Bye, " + names[i] + "!")
 

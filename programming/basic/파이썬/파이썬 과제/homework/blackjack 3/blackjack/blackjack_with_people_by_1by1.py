@@ -65,10 +65,7 @@ def main():
     pcount = int(pcount)
     names = [Reader.register() for _ in range(pcount)]
     games = [BlackjackController(name ) for name in names]
-    print(names)
-    print(games)
-    #name = Reader.register()
-    #game = BlackjackController(name)
+    
     while True:
         for i in range(len(games)):
             games[i].play()
