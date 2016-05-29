@@ -1,5 +1,6 @@
 class Constant:
     __instance = None
+    
     @staticmethod
     def getInstance():
         if(Constant.__instance == None):
