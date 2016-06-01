@@ -9,7 +9,8 @@ class WaitingRoom(Frame):
         self.__tk = master
         self.pack(pady=20)
         self.__totalPlayerCount = 0
-        self.create_wdigets()
+        self.__firstAccess = True
+        self.create_wdigets(resp)
         self.__resp = resp
     def resizeWindowSize(self):
         width = 0
@@ -57,7 +58,7 @@ class WaitingRoom(Frame):
         else:
             self.showDialogHadMinPlayer()
     
-    def create_wdigets(self):
+    def create_wdigets(self,resp=None):
         self.__lb1 = Label(self,text=StringData.getLableTitlePlayerCountHeader())
         self.__lb1.grid(row=0,column=0)
         self.label_totalPlayerCount= Label(self,justify=LEFT,text=str(self.__totalPlayerCount)+"명")
@@ -72,6 +73,17 @@ class WaitingRoom(Frame):
         self.__btn2.grid(row=2,column=3)
         self.__btn3 = Button(self,text=StringData.getBtnTxtDoPlay(),command=self.quit)
         self.__btn3.grid(row=3,column=4)
+        if(resp != None and type(resp) == list and self.__firstAccess == True):
+            self.__firstAccess = False
+            
+            tl = resp
+            print ("enter",tl)
+            for v in tl:
+                if(v != ''  ):
+                    self.listbox_playerlist.insert(self.listbox_playerlist.size(),v)
+                    
+            self.label_totalPlayerCount['text'] = str(self.listbox_playerlist.size())+"명"
+            resp.clear()    
         self.resizeWindowSize()
         
     def delPlayer(self):
@@ -102,7 +114,7 @@ class WaitingRoom(Frame):
         self.entry_inputnewplayerName.delete(0,END)
 class InputView:
     @staticmethod
-    def showWaitingRoomWindow():
+    def getPlayerNameList():
         response = []
         root = Tk()
         root.title("Waiting Room")
@@ -110,6 +122,17 @@ class InputView:
         WaitingRoom(root,response)
         root.mainloop()
         return response
-print(InputView.showWaitingRoomWindow())
-
-    
+    @staticmethod
+    def getPlayerNameListWithParam(resp):
+        
+        root = Tk()
+        root.title("Waiting Room")
+        root.geometry("500x350")
+        WaitingRoom(root,resp)
+        root.mainloop()
+        return resp
+def main():
+    playerNameList = []
+    playerNameList = InputView.getPlayerNameList()
+    while(playerNameList == [] or not ( 2<=len(playerNameList)<=8)):
+        playerNameList = InputView.getPlayerNameListWithParam(playerNameList)

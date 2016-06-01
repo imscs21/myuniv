@@ -2,20 +2,24 @@ import json
 
 
 class Card:
+    __Categories = ["spade","diamond","club","heart","joker"]
+    __CategoriesAsArt = ["♠","♦","♣","♥","☢"] 
+    __Levels = [ "2","3","4","5","6","7","8","9","10","J","Q","K","A","Jk1" ]
+    __category=0
+    __level=0
     @staticmethod
     def Categories():
         return Card.__Categories
     @staticmethod
     def CategoriesAsArt():
         return Card.__CategoriesAsArt
+    def cloneCard(self):
+        result = Card(self.__category,self.__level)
+        return result
     @staticmethod
     def Levels():
         return Card.__Levels
-    __Categories = ["spade","diamond","club","heart","joker"]
-    __CategoriesAsArt = ["♠","♦","♣","♥","☢"] 
-    __Levels = [ "2","3","4","5","6","7","8","9","10","J","Q","K","A","Jk1" ]
-    __category=0
-    __level=0
+    
     def __str__(self):
         return self.__CategoriesAsArt[self.__category]+ " "  +self.getLevelAsString()
     def __init__(self,Category=0,Level=0):
