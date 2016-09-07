@@ -1,8 +1,22 @@
 package base;
 import java.util.*;
+import java.io.*;
 public class BaseMain  {
 	public static BaseInjection inj=null;
 	private static BaseInput binput = new BaseInput();
+	private static boolean settedInputData = false;
+	public boolean setInputData(String data){
+		if(!settedInputData){
+		try{
+			System.setIn(new ByteArrayInputStream(data.getBytes()));
+			settedInputData =true;
+			return true;
+		}catch(Exception e){
+			
+		}
+		}
+		return false;
+	}
 	public static BaseInput getInput(){
 		return binput;
 	}
