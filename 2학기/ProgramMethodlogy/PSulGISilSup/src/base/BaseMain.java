@@ -37,4 +37,7 @@ public static void print(Object s){
 public static void printline(String s){
 	System.out.println(s);
 }
+public static void printf(String format,Object...objects){
+	System.out.printf(format, objects);
+}
 }
