@@ -76,5 +76,8 @@ public long readLong(String question){
 public Scanner reset(){
 	return sc.reset();
 }
-
+public String readLineWithNewLine(String question){
+	System.out.println(question);
+	return readLine();
+}
 }
