@@ -8,7 +8,7 @@ public class Test2 extends base.BaseMain {
 }
 	static class INFO{
 		public String url;
-		public final File path = new File("/Users/hsh/Music");
+		public final File path = new File("/Users/hsh/Downloads");
 	}
 public static void main(String...strings ){
 	final INFO inf = new INFO();
@@ -23,6 +23,7 @@ public static void main(String...strings ){
 		File f = new File(inf.path,url.getFile());
 		f.getParentFile().mkdirs();
 		InputStream ism = conn.getInputStream();
+		
 		OutputStream osm = new FileOutputStream(f);
 		printline("file downloading...");
 		int a=conn.getContentLength();
