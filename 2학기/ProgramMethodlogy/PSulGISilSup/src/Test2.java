@@ -8,14 +8,25 @@ public class Test2 extends base.BaseMain {
 }
 	static class INFO{
 		public String url;
-		public final File path = new File("/Users/hsh/Downloads");
+		public  File path = new File(getInput().readLine("folder?"));
+		public boolean resetPath(){
+			try{
+				path  = new File(getInput().readLine("folder?"));
+				return true;
+			}catch(Exception e){}
+			return false;
+		}
 	}
 public static void main(String...strings ){
 	final INFO inf = new INFO();
-	while(!(inf.url=getInput().readLine("input url? ")).equals("program://finish")){
-	try{
+	while(!(inf.url=getInput().readLine("input url? ")).contains("program://finish")){
+	if(inf.url.toString().contains("program://resetpath")){
+		while(!inf.resetPath());
+	}
+		try{
 		URL url = new URL(inf.url);
 		HttpURLConnection conn= (HttpURLConnection)url.openConnection();
+		conn.setRequestProperty("Accept-Encoding", "gzip");
 		printline("connecting...");
 		conn.setConnectTimeout(30*1000);
 		conn.connect();
