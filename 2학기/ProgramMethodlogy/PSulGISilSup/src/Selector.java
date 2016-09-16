@@ -136,7 +136,7 @@ if(command.startsWith("program://")){
 				
 				for(char i=convstcls;i<=convedcls;i++){
 					for(int j=stlv;j<=edlv;j++){
-					printf("debug: %c %d, idx:%d\n",i,j,i+j-convstcls-stlv);
+					//printf("debug: %c %d, idx:%d\n",i,j,i+j-convstcls-stlv);
 						commands[i-convstcls][j-stlv]=Character.toString(i)+j;
 					
 				}
