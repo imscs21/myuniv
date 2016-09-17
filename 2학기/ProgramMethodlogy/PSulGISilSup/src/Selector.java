@@ -102,12 +102,12 @@ protected static char max(char a,char b){
 public static void main(String...strings){
 
 	String command = "";
-	while(!(command=getInput().readLine("\ncommand(문제 번호나 프로그램 커멘드(program://help) 입력-예)A1혹은 G10)> ")).contains(COMMAND_FINISH)){
+	while(!(command=getInput().readString("\ncommand(문제 번호나 프로그램 커멘드(program://help) 입력-예)A1혹은 G10)> ")).contains(COMMAND_FINISH)){
 		
 		boolean isFinishCommandOnCheckFormat = false;
 		while(!checkFormat(command)){
 			printline("invalid format");
-			command = getInput().readLine("> ");
+			command = getInput().readString("> ");
 			isFinishCommandOnCheckFormat=command.contains(COMMAND_FINISH);
 					if(isFinishCommandOnCheckFormat){
 						break;
