@@ -17,6 +17,7 @@ public class Selector extends base.BaseMain{
 	}
 	public static final String COMMAND_FINISH = "program://finish";
 	public static final String COMMAND_HELP = "program://help";
+	public static final String COMMAND_LIST = "program://list";
 	public static final String COMMAND_PROBLEM_RANGE = "program://exeRange";
 	public static final String COMMAND_VERSION = "program://version";
 	
@@ -65,15 +66,19 @@ public class Selector extends base.BaseMain{
 				printline(executeMessage);
 				m.invoke(null,new Object[]{strings});
 			}catch(Exception e3){
+				if(!(e3 instanceof ClassNotFoundException))
 				e3.printStackTrace(System.out);
+				else{
+					printline("[PROGRAM::EXECUTE] " + command+" is not found and can`t execute");
+				}
 			}	
 		}
 	}
 	}
 	public static void showprogramversion(){
 		printline("\n=====VERSION=====");
-	printline("VERSION: 0.1");
-printline("BUILD DATE: 2016-9-16 FRI PM 07:12");
+	printline("VERSION: 0.21");
+printline("BUILD DATE: 2016-9-17 SAT PM 07:12");
 		printline("=====VERSION=====\n");
 	}
 	public static void helpmessage(){
@@ -82,6 +87,7 @@ printline("BUILD DATE: 2016-9-16 FRI PM 07:12");
 		printline(String.format(ft, COMMAND_FINISH)+"exit program");
 		printline(String.format(ft, COMMAND_HELP)+"show program command");
 		printline(String.format(ft, COMMAND_PROBLEM_RANGE)+"auto start problem with range");
+		printline(String.format(ft, COMMAND_LIST)+"show list of available level");
 		printline(String.format(ft, COMMAND_VERSION)+"show version");
 		
 		printline("==H==E==L==P==\n");
@@ -111,11 +117,52 @@ public static void main(String...strings){
 			break;
 		}
 if(command.startsWith("program://")){
+	
 	if(command.equals(COMMAND_VERSION)){
 	showprogramversion();}
 			if(command.equals(COMMAND_HELP)){
 				helpmessage();
-			}else if(command.equals(COMMAND_PROBLEM_RANGE)){
+			}
+			else if(command.equals(COMMAND_LIST)){
+				StringBuffer sb = new StringBuffer();
+				printline("\n==L==I==S==T==");
+				for(char i='A';i<='Z';i++){
+					boolean isSomeAdded = false;
+					for(int j=1;j<=100;j++){
+						final String step = Character.toString(i);
+						final String level = Integer.toString(j);
+						try{
+							Class<?> cls = Class.forName(step.toLowerCase()+"."+step.toUpperCase()+level);
+						Method m = cls.getMethod("main", new Class[]{strings.getClass()});
+sb.append(step+j+" ");
+isSomeAdded=true;
+						}catch(Exception e1){
+							try{
+								Class<?> cls = Class.forName(step.toLowerCase()+"."+"Main"+step.toUpperCase()+level);
+								Method m = cls.getDeclaredMethod("main", new Class[]{String[].class});
+								sb.append(step+j+" ");
+								isSomeAdded=true;
+							}catch(Exception e2){
+								
+								try{
+									Class<?> cls = Class.forName(step.toLowerCase()+"."+"Main"+level);
+									Method m = cls.getDeclaredMethod("main", new Class[]{String[].class});
+									sb.append(step+j+" ");
+									isSomeAdded=true;
+								}catch(Exception e3){
+									
+								}	
+							}
+						}	
+					}//end for j
+					if(isSomeAdded)
+					sb.append("\n\n");
+				}//end for i
+				
+				printline(sb.toString());
+				printline("==L==I==S==T==\n");
+			}
+			else if(command.equals(COMMAND_PROBLEM_RANGE)){
 				int stlv,edlv;
 				char convstcls,convedcls;
 				try{
@@ -143,9 +190,11 @@ if(command.startsWith("program://")){
 				}
 				for(int i=0;i<commands.length;i++){
 					for(int j=0;j<commands[i].length;j++){
-					printline(commands[i][j]);
-					if(commands[i][j]!=null)
-					execute(commands[i][j],strings);
+					
+					if(commands[i][j]!=null){
+						printline("[PROGRAM::EXECUTE] "+commands[i][j]);
+						execute(commands[i][j],strings);
+					}
 					}
 				}
 				}
