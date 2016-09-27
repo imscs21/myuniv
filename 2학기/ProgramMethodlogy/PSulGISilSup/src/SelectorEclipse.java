@@ -5,6 +5,7 @@ public class SelectorEclipse extends Selector implements Selector.ForEclipse{
 	
 	public boolean isInherited(){
 	return true;
+
 }
 	@Override
 public String desc(){
