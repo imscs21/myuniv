@@ -7,6 +7,7 @@ public static void main(String...strings){
 	while((number=getInput().readInt("number? "))<=100&&number>=0){
 ++count;
 	totalsum+=number;
+
 	}
 	average = Math.round(10*(totalsum+0.0f)/count)/10.0d;
 	

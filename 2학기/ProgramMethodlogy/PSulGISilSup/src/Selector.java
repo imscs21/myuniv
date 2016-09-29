@@ -205,7 +205,22 @@ isSomeAdded=true;
 			}
 		}
 else{
+	if(command.equals("E777")){
+		try{
+			final String executeMessage = ("[Program] 실행됨(에러를 제외하고 프로그램이 끝나지 않았는데 아무응답이 없을 경우 입력을 받기위한 대기모드일 가능성이 높음).");
+			
+			Class<?> cls = Class.forName("etc.ExtraClass");
+			Method m = cls.getMethod("main", new Class[]{strings.getClass()});
+			printline(executeMessage);
+			m.invoke(null,new Object[]{strings});
+			
+		}catch(Exception e){
+			e.printStackTrace(System.out);
+		}
+	}
+	else{
 		execute(command,strings);
+	}
 }
 	}
 	
