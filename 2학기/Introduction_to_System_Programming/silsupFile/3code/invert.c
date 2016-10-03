@@ -1,18 +1,6 @@
 /* getbits: get n bits from position p */
 #include <stdio.h>
 
-
-/*int invert(unsigned  int x,int p,int n){
-    return (
-              (
-               ~(x>>(p-n+1) )<<(15-n+1) )
-              
-              >>(15-p+1)
-             
-             )
-             
-              | (x<<(15-(p-n)+1) )>>(15-(p-n+1));
-}*/
 void debug(unsigned short v,const int len){
     unsigned short a = v;
     for(int i=0;i<len;i++){
