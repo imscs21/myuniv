@@ -5,11 +5,17 @@ public class BaseMain  {
 	public static BaseInjection inj=null;
 	private static BaseInput binput = new BaseInput();
 	private static boolean settedInputData = false;
-	public boolean setInputData(String data){
+	//private static boolean InputCustomizable = false;
+	
+	protected static  void resetBaseInput(){
+		binput = new BaseInput();
+	}
+	public static boolean setInputData(String data){
 		if(!settedInputData){
 		try{
 			System.setIn(new ByteArrayInputStream(data.getBytes()));
 			settedInputData =true;
+			resetBaseInput();
 			return true;
 		}catch(Exception e){
 			
