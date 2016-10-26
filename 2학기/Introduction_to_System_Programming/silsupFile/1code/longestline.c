@@ -37,10 +37,6 @@ void copy(char to[], char from[]) {
  ++i;
 }
  void reverse(char line[], int len){
-for(int i=0;i<len/2;i++){
-    char tmp = line[i];
-    line[i]= line[len-1-i];
-    line[len-1-i] = tmp;
-}
+for(int i=0;i<len/2;i++)line[i]^=line[len-1-i]^=line[i]^=line[len-1-i];
      
  }
