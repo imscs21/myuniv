@@ -21,8 +21,7 @@ void expand(char s[], char t[]) {
          end = s[2]-'0';
     }
     else{//stand alone
-        start=s[0]-'0';
-        end = start;
+        start=end=s[0]-'0';
     }
     
     int i=0;

@@ -9,3 +9,5 @@ int main() {
             printf("%d\n", i = i - j);
     printf("%d\n", i);
 }
+
+for(int i =0;)
