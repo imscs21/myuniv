@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <string.h>
+
 int palindrome(char * val, int len){
     for(int i=0;i<len/2;val++,i++,len--){
         while(val[len-1-i]==' '){
@@ -25,11 +25,12 @@ int n;
 return n; }
      int main() {
         
-        char* ds[] = {"C","civic","kayak","madam","racecar","radar","rotator","step on no pets","no lemon no melon"};
-    for(int i=0;i<9;i++){
-        printf("%d\n",palindrome(ds[i],strlen(ds[i])));
+         char* ds[] ={"C","civic","kayak","madam","racecar","radar","rotator","step on no pets","no lemon no melon","mar qii mar",NULL};
+    for(int i=0;ds[i];i++){
+        printf("%d\n",palindrome(ds[i],strlen2(ds[i])));
     }
-      /*  while(ds!=NULL){
+        
+         /* while(*ds!=NULL){
         
 printf("%d\n",palindrome(*ds,strlen(*ds)));
 ds++;
