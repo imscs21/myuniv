@@ -19,24 +19,23 @@ void merge(int *x, int *y, int *z){
             b++;
         }
         else{
-            *(z++) = *(x++);
-            a++;
+        *(z++) = *(x++);
+        a++;
         }
     }
-  
 }
 
 int main() {
-    int xx[] = {3,7,11,13,0};
+    int xx[] = {3,7,11,13};
     int* x = xx;
     int yy[] = {2,5,6,9};
     int* y = yy;
-
+    
     int* z= (int*)malloc(sizeof(int)*30);
        merge(x,y,z);
        
-    //debug(x);
-  //  debug(y);
+    debug(x);
+    debug(y);
 debug(z);
 printf("finish\n");
 }

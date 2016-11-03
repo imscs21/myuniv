@@ -1,10 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 int palindrome(char * val, int len){
-    for(int i=0;i<len/2;i++){
-        if(val[i]!=val[len-1-i]){
+    for(int i=0;i<len;val++,i++,len--){
+        while(val[len-1-i]==' '){
+            i++;
+        }
+        while(*val==' '){
+            val++;
+            len--;
+        }
+        
+        if(*val!=val[len-1-i]){
             return 0;
         }
+        
+      
     }
     return 1;
 }
