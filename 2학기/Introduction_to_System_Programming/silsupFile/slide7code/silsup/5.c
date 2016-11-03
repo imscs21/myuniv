@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 int palindrome(char * val, int len){
-    for(int i=0;i<len;val++,i++,len--){
+    for(int i=0;i<len/2;val++,i++,len--){
         while(val[len-1-i]==' '){
             i++;
         }
