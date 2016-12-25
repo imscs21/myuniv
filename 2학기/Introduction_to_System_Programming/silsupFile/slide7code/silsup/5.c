@@ -25,7 +25,7 @@ int n;
 return n; }
      int main() {
         
-         char* ds[] ={"C","civic","kayak","madam","racecar","radar","rotator","step on no pets","no lemon no melon","mar qii mar",NULL};
+         char* ds[] ={"C","civic","kayak","madam","racecar","radar","rotator","step on no pets","no lemon no melon","mar q ii m ar",NULL};
     for(int i=0;ds[i];i++){
         printf("%d\n",palindrome(ds[i],strlen2(ds[i])));
     }
